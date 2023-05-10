@@ -30,7 +30,7 @@ enum DownloadError: Error {
 
 //var isRecording = false
 
-public class ViewController: UIViewController,ARSCNViewDelegate, RenderARDelegate, RecordARDelegate {
+public class BaseViewController: UIViewController,ARSCNViewDelegate, RenderARDelegate, RecordARDelegate {
     
     
     var recorder: RecordAR?
@@ -104,6 +104,7 @@ public class ViewController: UIViewController,ARSCNViewDelegate, RenderARDelegat
         UserDefaults.standard.removeObject(forKey: "bigImages")
         ref = Database.database().reference()
         // Add Loader
+        
         
         
         recordButton.layer.cornerRadius = 8
@@ -580,7 +581,7 @@ public class ViewController: UIViewController,ARSCNViewDelegate, RenderARDelegat
     
 }
 
-extension ViewController {
+extension BaseViewController {
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         guard let device = sceneView.device else {
@@ -612,7 +613,7 @@ extension ViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension BaseViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return   0// self.smallImages.count
         //  return glassesCount
@@ -632,7 +633,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 }
 
 
-extension ViewController : AVCaptureFileOutputRecordingDelegate {
+extension BaseViewController : AVCaptureFileOutputRecordingDelegate {
     
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -667,7 +668,7 @@ extension ViewController : AVCaptureFileOutputRecordingDelegate {
 
 // MARK: - Button Action Methods
 
-extension ViewController {
+extension BaseViewController {
     @IBAction func close(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
@@ -752,7 +753,7 @@ extension ViewController {
 }
 // MARK: - ARVideoKit Delegate Methods
 
-extension ViewController {
+extension BaseViewController {
     func frame(didRender buffer: CVPixelBuffer, with time: CMTime, using rawBuffer: CVPixelBuffer) {
         // Do some image/video processing.
     }
